@@ -1,0 +1,588 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": {{ site }},
+  "links": [],
+  "panels": [
+    {% for service in services %}
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": {{ (loop.index - 1) * 9 }}
+      },
+      "id": {{ loop.index }}9,
+      "panels": [],
+      "title": "{{ service }}",
+      "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "WMS Prometheus Prod",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 0,
+        "y": {{ (loop.index - 1) * 9 + 1 }}
+      },
+      "id": {{ loop.index }}2,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "wms_heap_memory_usage_HeapMemoryUsage_used {instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "intervalFactor": 1,
+          "legendFormat": "HeapMemoryUsage_used",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "expr": "wms_heap_memory_usage_HeapMemoryUsage_max {instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "HeapMemoryUsage_max",
+          "refId": "B"
+        },
+        {
+          "expr": "wms_heap_memory_usage_HeapMemoryUsage_committed {instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "HeapMemoryUsage_committed",
+          "refId": "C"
+        },
+        {
+          "expr": "wms_heap_memory_usage_HeapMemoryUsage_init{instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "HeapMemoryUsage_init",
+          "refId": "D"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Heap-{{ service }}",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "WMS Prometheus Prod",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 6,
+        "y": {{ (loop.index - 1) * 9 + 1 }}
+      },
+      "id": {{ loop.index }}4,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "wms_thread_count_ThreadCount {instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "intervalFactor": 1,
+          "legendFormat": "ThreadCount",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "expr": "wms_thread_count_PeakThreadCount {instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "PeakThreadCount",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Threads-{{ service }}",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "WMS Prometheus Prod",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 12,
+        "y": {{ (loop.index - 1) * 9 + 1 }}
+      },
+      "id": {{ loop.index }}6,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "wms_ssn_connection_pool_NumActive {instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "intervalFactor": 1,
+          "legendFormat": "NumActive",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "expr": "wms_ssn_connection_pool_NumIdle {instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "NumIdle",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "DB Connections-{{ service }}",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "WMS Prometheus Prod",
+      "fill": 1,
+      "gridPos": {
+        "h": 8,
+        "w": 6,
+        "x": 18,
+        "y": {{ (loop.index - 1) * 9 + 1 }}
+      },
+      "id": {{ loop.index }}8,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "wms_cpu_usage_ProcessCpuLoad {instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "intervalFactor": 1,
+          "legendFormat": "ProcessCpuLoad",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "expr": "wms_cpu_usage_SystemCpuLoad {instance=\"10.46.39.75:{{ site }}\",job=\"telegraf\", oop=\"{{ service }}\",oot=\"custpromise\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "SystemCpuLoad",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "CPU Usage-{{ service }}",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+
+{% if loop.index == loop.length %}
+    }
+{% else %}
+    },
+{% endif %}
+
+    {% endfor %}
+  ],
+  "schemaVersion": 16,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "WMS SSI {{ fc|upper }} dashboard",
+  "uid": "{{ fc }}",
+  "version": {{ ver }}
+}
