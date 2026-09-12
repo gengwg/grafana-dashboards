@@ -13,7 +13,7 @@
       }
     ]
   },
-  "description": "在同一看板下展示TCP,ICMP,HTTPS的状态监控，优化各图表展示效果，支持多服务同时展示。",
+  "description": "\u5728\u540c\u4e00\u770b\u677f\u4e0b\u5c55\u793aTCP,ICMP,HTTPS\u7684\u72b6\u6001\u76d1\u63a7\uff0c\u4f18\u5316\u5404\u56fe\u8868\u5c55\u793a\u6548\u679c\uff0c\u652f\u6301\u591a\u670d\u52a1\u540c\u65f6\u5c55\u793a\u3002",
   "editable": true,
   "gnetId": 9965,
   "graphTooltip": 0,
@@ -232,19 +232,13 @@
       "type": "table"
     },
     {
-      "aliasColors": {
-        "0": "#890f02",
-        "1": "#508642"
-      },
-      "breakPoint": "50%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "Others",
-        "threshold": ""
-      },
       "datasource": null,
-      "fontSize": "80%",
-      "format": "short",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 15,
         "w": 10,
@@ -252,21 +246,33 @@
         "y": 12
       },
       "id": 2412,
-      "interval": null,
-      "legend": {
-        "header": "",
-        "percentage": true,
-        "show": true,
-        "sort": null,
-        "sortDesc": null,
-        "values": true
+      "options": {
+        "displayLabels": [
+          "name",
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "legendType": "Right side",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "pieType": "pie",
-      "strokeWidth": 1,
       "targets": [
         {
           "expr": " count_values('value',probe_success{job=~'$job'})",
@@ -277,8 +283,10 @@
         }
       ],
       "title": "Ping Stats Overall (0=Offline, 1=Online)",
-      "type": "grafana-piechart-panel",
-      "valueName": "current"
+      "type": "piechart",
+      "maxDataPoints": 3,
+      "interval": null,
+      "links": []
     }
   ],
   "refresh": false,
